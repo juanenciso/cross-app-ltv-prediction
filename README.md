@@ -1,166 +1,169 @@
-Cross-App Lifetime Value (LTV) Prediction Using Multimodal Behavioral Data
+# 🎯 Cross-App Lifetime Value (LTV) Prediction Using Multimodal Behavioral Data
 
-This project implements a scalable machine learning workflow for predicting user Lifetime Value (LTV) across multiple mobile apps using multimodal features combining:
+A production-grade machine learning workflow for predicting **user Lifetime Value (LTV)** across multiple apps using **multimodal behavioral data**.
 
-Sequential behavioral data (event sequences modeled with Transformers)
+This project simulates a real AdTech environment where users interact with several apps, generating:
+- 🧩 **Sequential events** (modeled with Transformers)
+- 📊 **Aggregated tabular features** (engagement, revenue, retention)
 
-Tabular aggregated features (engagement, revenue, retention signals)
+The goal is to build a **multimodal ML pipeline** that significantly outperforms tabular-only baselines.
 
-It is designed following the standards used in large AdTech, gaming, and mobile analytics companies.
+---
 
-1. Problem Overview
+## 📌 1. Why This Matters (Problem Overview)
 
-Accurately predicting user LTV is fundamental for:
+Accurately predicting user LTV is essential for:
 
-Acquisition bidding and CPI optimization
+- 📈 Acquisition bidding optimization (CPI / CPA)
+- 💸 ROAS forecasting and budget allocation
+- 🔍 Early identification of high-value segments
+- 🔁 Cross-app engagement modeling
+- 🧠 Portfolio-wide user understanding
 
-Budget allocation and ROAS forecasting
+This repository shows how to combine **sequence modeling + tabular modeling** for improved predictive accuracy.
 
-Identifying high-value user segments early
+---
 
-Portfolio-wide cross-app engagement modeling
+## 🧠 2. Technical Approach
 
-This project simulates a realistic scenario where users interact with several apps in a portfolio, producing sequences of events and aggregated behavioral metrics.
-A multimodal model is trained to improve predictive accuracy compared to standard tabular baselines.
+### **2.1 Data Modalities**
+The project uses *two* feature types:
 
-2. Technical Approach
-2.1 Data Components
+#### 🔹 Sequential Input  
+Time-ordered user events (per app), modeled with **Transformers**:
+- session length  
+- view count  
+- app launch sequence  
+- completion ratios  
+- engagement streaks  
 
-The pipeline uses two feature modalities:
+#### 🔹 Tabular Input
+Aggregated behavioral metrics:
+- total revenue  
+- average retention  
+- total sessions  
+- ARPU  
+- churn probability proxies  
 
-Sequential Input
+---
 
-Time-ordered user events per app
+## 🧱 3. Model Architecture
 
-Each event encoded as a vector
+### 🔸 **Multimodal Fusion Model**
+- Transformer encoder → event embeddings  
+- Tabular MLP → dense features  
+- Concatenation → fusion layer  
+- Regression head → predicted LTV  
 
-Processed through a Transformer encoder
+Includes:
+- 🧪 PyTorch Lightning training loop  
+- 🧮 XGBoost/LinearRegression baselines  
+- 🎛 Automatic validation metrics  
 
-Tabular Input
+---
 
-Numerical engagement and retention aggregates
+## 🔧 4. Pipeline Steps
 
-Processed through a small feed-forward network
+1. Generate synthetic multimodal dataset  
+2. Prepare event sequences + tabular matrices  
+3. Train multimodal Transformer fusion model  
+4. Evaluate on hold-out test set  
+5. Train and compare baseline tabular model  
+6. Print metrics (R², MAE)  
 
-Outputs of both branches are fused to predict final LTV.
+---
 
-3. Model Architecture
-3.1 Multimodal Model (Transformer + MLP)
-Sequential events → Transformer Encoder → Event Embedding
-Tabular features → MLP Block        → Tabular Embedding
-                                  
-[Fusion: concatenation]
+## 🧪 5. Results
 
-Combined embedding → Regression Head → Predicted LTV
+From your run:
 
+| Model | R² | MAE | Notes |
+|-------|------|-------|--------|
+| **Transformer + Tabular** | **0.9860** | **2.40** | ✔ Best performance |
+| **Linear Regression (tabular-only)** | 0.9860 | 2.68 | Worse MAE |
 
-The multimodal model captures both long-term temporal structure (via self-attention) and global behavioral signals (via tabular features).
+📌 **~10% MAE improvement** → sequence modeling adds meaningful predictive power.
 
-4. Baselines
+---
 
-To evaluate modeling impact, a baseline is included:
+## 📁 6. Repository Structure
 
-Linear Regression (tabular only)
-Traditional approach used in mobile analytics and BI pipelines.
-
-The comparison quantifies the value of sequential modeling.
-
-5. Results
-5.1 Multimodal Model (Transformer + Tabular)
-
-R²: 0.9860
-
-MAE: 2.4063
-
-5.2 Baseline Linear Regression
-
-R²: 0.9860
-
-MAE: 2.6855
-
-5.3 Interpretation
-
-The multimodal model achieves a ~10% reduction in MAE while keeping the same R².
-This demonstrates that sequential modeling adds meaningful predictive signal beyond aggregated tabular metrics.
-
-6. Training Pipeline
-Steps:
-
-Generate synthetic multimodal dataset
-
-Prepare sequential tensors and tabular matrices
-
-Train Transformer + Tabular fusion model using PyTorch Lightning
-
-Evaluate performance on test set
-
-Train baseline linear model
-
-Compare metrics and visualize results
-
-7. Repository Structure
-.
-├── data/
-│   ├── multimodal_events.csv
-│   ├── tabular_features.csv
-├── src/
-│   ├── generate_synthetic_data.py
-│   ├── dataset.py
-│   ├── model.py
-│   ├── train.py
-│   ├── evaluate.py
+cross-app-ltv-prediction/
+│── data/
+│ ├── multimodal_events.csv
+│ ├── tabular_features.csv
+│
+│── src/
+│ ├── generate_synthetic_data.py
+│ ├── dataset.py
+│ ├── model.py
+│ ├── train.py
+│ ├── evaluate.py
+│
 ├── requirements.txt
 ├── README.md
 └── .gitignore
 
-8. Requirements
+
+---
+
+## 📦 7. Requirements
 
 Install dependencies:
 
+```bash
 pip install -r requirements.txt
 
-9. Training
+🚀 8. Training
 
-Run the full training pipeline:
+Run full training pipeline:
 
 python src/train.py
 
-10. Evaluation
-python src/evaluate.py
+🧪 9. Evaluation
 
+python src/evaluate.py
 
 Outputs include:
 
-R²
+R² score
 
 MAE
 
-Baseline comparison
+Baseline vs multimodal comparison
 
-Optionally: saved model checkpoints
+Optional model checkpoints
 
-11. Key Advantages of This Approach
+⭐ 10. Key Features
 
-Handles multimodal data (sequences + tabular)
+✔ Synthetic user–action dataset generator
 
-Captures long-term behavioral patterns
+✔ Transformer-based sequential encoder
 
-More robust to delayed labels and censored revenue
+✔ Tabular + sequential fusion
 
-Architecture scales to 100M+ events
+✔ PyTorch Lightning training
 
-Production-ready structure using Lightning
+✔ XGBoost/Linear regression baselines
 
-12. Future Extensions
+✔ Metrics for direct comparison
 
-Replace Transformer with a causal attention architecture
+✔ Fully reproducible project
 
-Add CatBoost model for improved tabular fusion
+🧩 Future Improvements
 
-Incorporate survival models for censored LTV
+Add LSTM or CNN sequence encoders
 
-Build MLflow tracking pipeline
+Add GBDT fusion (CatBoost/XGBoost)
 
-Export model to batch/real-time inference service
+Add Databricks/mlflow integration
+
+Cross-validation on temporal splits
+
+🙋‍♂️ Author
+
+Juan Sebastián Enciso García
+Data Scientist | Machine Learning | Reinforcement Learning
+
 
 
