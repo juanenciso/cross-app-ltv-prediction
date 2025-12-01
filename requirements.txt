@@ -1,0 +1,13 @@
+numpy
+pandas
+pyarrow
+scikit-learn
+torch
+pytorch-lightning
+transformers
+catboost
+xgboost
+mlflow
+fastapi
+uvicorn
+

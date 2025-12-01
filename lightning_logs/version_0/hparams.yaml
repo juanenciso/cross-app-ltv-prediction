@@ -1,0 +1,9 @@
+d_model: 64
+lr: 0.001
+ltv_loss_weight: 1.0
+n_apps: 5
+n_heads: 4
+num_layers: 2
+ret_loss_weight: 0.3
+seq_num_dim: 3
+tab_dim: 9

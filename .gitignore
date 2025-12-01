@@ -1,0 +1,20 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Data
+data/*.csv
+data/*.parquet
+
+# Model checkpoints
+*.ckpt
+*.pt
+
+# macOS system files
+.DS_Store
+
