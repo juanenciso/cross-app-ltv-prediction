@@ -117,15 +117,21 @@ pip install -r requirements.txt
 
 ---
 
-🚀 8. Training
+## 🚀 8. Training
 
 Run full training pipeline:
 
+```
 python src/train.py
+```
 
-🧪 9. Evaluation
+---
 
+## 🧪 9. Evaluation
+
+```
 python src/evaluate.py
+```
 
 Outputs include:
 
@@ -135,9 +141,11 @@ MAE
 
 Baseline vs multimodal comparison
 
+---
+
 Optional model checkpoints
 
-⭐ 10. Key Features
+## ⭐ 10. Key Features
 
 ✔ Synthetic user–action dataset generator
 
@@ -153,7 +161,9 @@ Optional model checkpoints
 
 ✔ Fully reproducible project
 
-🧩 Future Improvements
+---
+
+## 🧩 Future Improvements
 
 Add LSTM or CNN sequence encoders
 
@@ -163,7 +173,9 @@ Add Databricks/mlflow integration
 
 Cross-validation on temporal splits
 
-🙋‍♂️ Author
+---
+
+## 🙋‍♂️ Author
 
 Juan Sebastián Enciso García
 Data Scientist | Machine Learning | Reinforcement Learning
